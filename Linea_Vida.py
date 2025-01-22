@@ -50,17 +50,17 @@ def crear_linea_tiempo_desarrollo(texto, imagen_fondo, guardar_pdf=False):
         x_positions.append(x)
         y_positions.append(y)
 
-    # Configurar el lienzo
-    plt.style.use('default')
-    fig, ax = plt.subplots(figsize=(15, 8))
+    # Ajustar dimensiones del lienzo
+    fig_height = max(abs(min(y_positions)) + 2, 8)  # Altura mínima de 8 unidades
+    fig, ax = plt.subplots(figsize=(15, fig_height))
 
-    # Ajustar los límites en función de las posiciones de los eventos
-    margin = 1.5
+    # Ajustar los límites del lienzo
+    margin = 2
     ax.set_xlim(min(x_positions) - margin, max(x_positions) + margin)
     ax.set_ylim(min(y_positions) - margin, margin)
 
-    # Redimensionar la imagen de fondo para cubrir el área de la línea de tiempo
-    ax.imshow(bg_image, aspect='auto', extent=(min(x_positions) - margin, max(x_positions) + margin, min(y_positions) - margin, margin), alpha=0.9)
+    # Redimensionar la imagen de fondo para cubrir el área
+    ax.imshow(bg_image, aspect='auto', extent=(min(x_positions) - margin, max(x_positions) + margin, min(y_positions) - margin, margin), alpha=0.3)
 
     # Dibujar conectores curvos y círculos decorativos
     for i in range(n_eventos - 1):
